@@ -1,0 +1,70 @@
+{
+    "subscription_id": "aaas",
+    "subscription_for": "lana@platformatory.io",
+    "service_name": "ApiDemo",
+    "subscription_duration": {
+        "from": "2022-01-01",
+        "to": "2024-05-01"
+    },
+    "subscription_plan": {
+        "name": "gold",
+        "id": "plan-18383",
+        "type": "tiered",
+        "tiers": [
+            {
+                "up_to": 300,
+                "rate": 3
+            },
+            {
+                "up_to": 500,
+                "rate": 2.5
+            },
+            {
+                "up_to": 1000,
+                "rate": 2
+            }
+        ],
+        "metering_units": {
+            "type": "custom",
+            "field_ref": "request.headers.consumed_units",
+            "aggregated_as": "SUM"
+        },
+        "bill_criteria": [
+            { 
+                "criteria_no": 1,
+                "field_ref": "response.status",
+                "operator": "<>",
+                "type": "STRING",
+                "value": "500"
+            },
+            {
+                "criteria_no": 2,
+                "field_ref": "request.headers.subscription_id",
+                "operator": "xx",
+                "type": "STRING",
+                "value": "abcdef-84832" 
+            }
+        ],
+        "subscription_id_source": "request.headers.subscription_id",
+        "selector_fields":[
+            {
+                "selector_no": 1,
+                "field_ref": "request.headers.subscription_id",
+                "name": "subscription_id",
+                "type": "STRING"
+            },
+            {
+                "selector_no": 2,
+                "field_ref": "consumer.id",
+                "name": "consumer_id",
+                "type": "STRING"
+            },
+            {
+                "selector_no": 3,
+                "field_ref": "consumer.username",
+                "name": "consumer_name",
+                "type": "STRING"
+            }
+        ]
+    }
+}

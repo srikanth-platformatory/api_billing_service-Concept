@@ -1,0 +1,43 @@
+[
+    {
+    "subscription_id": "demo_1234_plan",
+    "subscription_for": "lana@platformatory.io",
+    "subscription_duration": {
+        "from": "2022-01-01",
+        "to": "2024-05-01"
+        },
+    "subscription_plan": {
+        "name": "gold",
+        "id": "plan-18383",
+        "type": "tiered",
+        "tiers": [
+            {
+                "up_to": 300,
+                "rate": 3
+            },
+            {
+                "up_to": 500,
+                "rate": 2.5
+            },
+            {
+                "up_to": 1000,
+                "rate": 2
+            }
+        ],
+        "metering_units": {
+            "type": "custom",
+            "field_ref": "response.headers.consumed_units",
+            "aggregated_as": "SUM"
+        },
+        "bill_criteria": [
+            { 
+                "expression": "response.headers.status <> 500"
+            },
+            {
+                "expression": "response.headers.billable = TRUE"
+            }
+        ],
+        "subscription_id_source": "request.headers.subscription_id"
+        }
+    }
+]
